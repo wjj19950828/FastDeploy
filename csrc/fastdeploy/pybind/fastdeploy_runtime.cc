@@ -87,7 +87,7 @@ void BindRuntime(pybind11::module& m) {
                  auto dtype = NumpyDataTypeToFDDataType(warm_datas[i][j].dtype());
                  std::vector<int64_t> data_shape;
                  data_shape.insert(
-                     warm_tensors[i][j].shape.begin(), warm_datas[i][j].shape(),
+                     data_shape.begin(), warm_datas[i][j].shape(),
                      warm_datas[i][j].shape() + warm_datas[i][j].ndim());
                  warm_tensors[i][j].Resize(data_shape, dtype);
                  std::cout << "test_wjj: " << data_shape.size() << std::endl;
