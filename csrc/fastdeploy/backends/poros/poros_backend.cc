@@ -177,21 +177,25 @@ bool PorosBackend::Compile(const std::string& model_file,
     }
     prewarm_datas.push_back(prewarm_data);
   }
+  std::cout << "0000000000: " << _numinputs << std::endl;
   // get outputs nums
   auto temp_result = mod.forward(prewarm_datas[0]);
   size_t outputs_nums = 0;
   if (temp_result.isTensor()) {
     outputs_nums += 1;
   } else if (temp_result.isTuple()) {
+    std::cout << "xxxxxxxxxxx: " << std::endl;
     auto temp_result_tuple = temp_result.toTuple();
     for (size_t i = 0; i < temp_result_tuple->elements().size(); ++i) {
       auto poros_tensor = temp_result_tuple->elements()[i];
       if (poros_tensor.isTensor()) {
+        std::cout << "yyyyyyyyy: " << std::endl;
         outputs_nums += 1;
       } else if (poros_tensor.isList()) {
         auto poros_tensor_list = poros_tensor.toList();
         outputs_nums += poros_tensor_list.size();
       } else if (poros_tensor.isTuple()) {
+        std::cout << "zzzzzzzzzz: " << std::endl;
         auto poros_tensor_tuple = poros_tensor.toTuple();
         outputs_nums += poros_tensor_tuple->elements().size();
       } else {
