@@ -151,7 +151,7 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
     if (data_type == at::kFloat) {
         // fd_tensor->data.resize(numel * sizeof(float));
         if (is_backend_cuda) {
-          cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(float), cudaMemcpyDeviceToHost)
+          cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(float), cudaMemcpyDeviceToHost);
         } else {
           memcpy(fd_tensor->Data(), tensor.data_ptr(),
                  numel * sizeof(float));
@@ -160,7 +160,7 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
     } else if (data_type == at::kInt) {
         // fd_tensor->data.resize(numel * sizeof(int32_t));
         if (is_backend_cuda) {
-          cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(int32_t), cudaMemcpyDeviceToHost)
+          cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(int32_t), cudaMemcpyDeviceToHost);
         } else {
           memcpy(fd_tensor->Data(), tensor.data_ptr(),
                  numel * sizeof(int32_t));
@@ -169,7 +169,7 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
     } else if (data_type == at::kLong) {
         // fd_tensor->data.resize(numel * sizeof(int64_t));
         if (is_backend_cuda) {
-          cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(int64_t), cudaMemcpyDeviceToHost)
+          cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(int64_t), cudaMemcpyDeviceToHost);
         } else {
           memcpy(fd_tensor->Data(), tensor.data_ptr(),
                  numel * sizeof(int64_t));
@@ -178,7 +178,7 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
     } else if (data_type == at::kDouble) {
         // fd_tensor->data.resize(numel * sizeof(double));
         if (is_backend_cuda) {
-          cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(double), cudaMemcpyDeviceToHost)
+          cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(double), cudaMemcpyDeviceToHost);
         } else {
           memcpy(fd_tensor->Data(), tensor.data_ptr(),
                  numel * sizeof(double));
