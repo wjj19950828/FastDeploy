@@ -376,7 +376,7 @@ bool Runtime::Init(const RuntimeOption& _option) {
         option.model_format == Frontend::TORCHSCRIPT,
         "Backend::POROS only supports model format of Frontend::TORCHSCRIPT.");
     // CreatePorosBackend();
-    FDINFO << "Runtime initialized with Backend::PDINFER in device " << Str(option.device) << "." << std::endl;
+    FDINFO << "Runtime initialized with Backend::POROS in device " << Str(option.device) << "." << std::endl;
     return true;
   } else if (option.backend == Backend::OPENVINO) {
     FDASSERT(option.device == Device::CPU,

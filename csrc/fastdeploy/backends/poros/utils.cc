@@ -88,15 +88,19 @@ at::Tensor CreatePorosValue(FDTensor& tensor, bool is_backend_cuda) {
   auto data_type = GetPorosDtype(tensor.dtype);
   size_t numel = tensor.Numel();
   at::Tensor poros_value;
+  std::cout << "test_wjj111111111:" << std::endl;
   if (is_backend_cuda) {
     poros_value = std::move(at::empty(tensor.shape, {at::kCUDA}).to(data_type).contiguous());
   } else {
     poros_value = std::move(at::empty(tensor.shape, {at::kCPU}).to(data_type).contiguous());
   }
+  std::cout << "test_wjj22222222:" << std::endl;
   if (data_type == at::kFloat) {
     if (is_backend_cuda) {
+      std::cout << "test_wjj33333333:" << std::endl;
       cudaMemcpy(poros_value.data_ptr(), static_cast<void*>(tensor.Data()),
             numel * sizeof(float), cudaMemcpyHostToDevice);
+      std::cout << "test_wjj44444444:" << std::endl;
     } else {
       memcpy(poros_value.data_ptr(), static_cast<void*>(tensor.Data()),
               numel * sizeof(float));
