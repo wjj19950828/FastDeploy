@@ -14,6 +14,10 @@
 
 #include "fastdeploy/backends/poros/poros_backend.h"
 
+#ifdef WITH_GPU
+#include <cuda_runtime_api.h>
+#endif
+
 namespace fastdeploy {
 
 std::string AtType2String(const at::ScalarType& dtype) {
@@ -83,10 +87,11 @@ at::Tensor CreatePorosValue(FDTensor& tensor, bool is_backend_cuda) {
            "Only support tensor which device is CPU or GPU for PorosBackend.");
   auto data_type = GetPorosDtype(tensor.dtype);
   size_t numel = tensor.Numel();
+  at::Tensor poros_value;
   if (is_backend_cuda) {
-    at::Tensor poros_value = std::move(at::empty(tensor.shape, {at::kCUDA}).to(data_type).contiguous());
+    poros_value = std::move(at::empty(tensor.shape, {at::kCUDA}).to(data_type).contiguous());
   } else {
-    at::Tensor poros_value = std::move(at::empty(tensor.shape, {at::kCPU}).to(data_type).contiguous());
+    poros_value = std::move(at::empty(tensor.shape, {at::kCPU}).to(data_type).contiguous());
   }
   if (data_type == at::kFloat) {
     if (is_backend_cuda) {
@@ -121,8 +126,7 @@ at::Tensor CreatePorosValue(FDTensor& tensor, bool is_backend_cuda) {
               numel * sizeof(double));
     }
   } else {
-    FDASSERT(false, "Unrecognized data type of " + Str(tensor.dtype) +
-              " while calling PorosBackend::CreatePorosValue().");
+    FDASSERT(false, "Unrecognized data type while calling PorosBackend::CreatePorosValue().");
   }
   // to cuda
   // if (is_backend_cuda) {
@@ -139,12 +143,13 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
       shape.push_back(sizes[i]);
     }
     auto fd_dtype = GetFdDtype(data_type);
-    fd_tensor->shape = shape;
-    fd_tensor->dtype = fd_dtype;
+    // fd_tensor->shape = shape;
+    // fd_tensor->dtype = fd_dtype;
+    fd_tensor->Resize(shape, fd_dtype);
     size_t numel = tensor.numel();
     // at::Tensor -> FDTensor
     if (data_type == at::kFloat) {
-        fd_tensor->data.resize(numel * sizeof(float));
+        // fd_tensor->data.resize(numel * sizeof(float));
         if (is_backend_cuda) {
           cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(float), cudaMemcpyDeviceToHost)
         } else {
@@ -153,7 +158,7 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
         }
         return;
     } else if (data_type == at::kInt) {
-        fd_tensor->data.resize(numel * sizeof(int32_t));
+        // fd_tensor->data.resize(numel * sizeof(int32_t));
         if (is_backend_cuda) {
           cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(int32_t), cudaMemcpyDeviceToHost)
         } else {
@@ -162,7 +167,7 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
         }
         return;
     } else if (data_type == at::kLong) {
-        fd_tensor->data.resize(numel * sizeof(int64_t));
+        // fd_tensor->data.resize(numel * sizeof(int64_t));
         if (is_backend_cuda) {
           cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(int64_t), cudaMemcpyDeviceToHost)
         } else {
@@ -171,7 +176,7 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
         }
         return;
     } else if (data_type == at::kDouble) {
-        fd_tensor->data.resize(numel * sizeof(double));
+        // fd_tensor->data.resize(numel * sizeof(double));
         if (is_backend_cuda) {
           cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(double), cudaMemcpyDeviceToHost)
         } else {

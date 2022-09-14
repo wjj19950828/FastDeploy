@@ -292,7 +292,7 @@ void RuntimeOption::SetInputDtypes(const std::vector<std::string>& dtypes) {
     } else if (dtypes[i] == "uint8") {
       input_dtypes.push_back(FDDataType::UINT8);
     } else {
-      FDASSERT(false, "Unexpected data type: " + dtypes[i]);
+      FDASSERT(false, "Unexpected data type!!!");
     }
   }
 }
