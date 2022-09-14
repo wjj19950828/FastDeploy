@@ -66,7 +66,7 @@ std::string AtType2String(const at::ScalarType& dtype);
 at::Tensor CreatePorosValue(FDTensor& tensor, bool is_backend_cuda = false);
 
 // Copy memory data from at::Tensor to fastdeploy::FDTensor
-void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor);
+void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_backend_cuda = false);
 
 class PorosBackend : public BaseBackend {
  public:
