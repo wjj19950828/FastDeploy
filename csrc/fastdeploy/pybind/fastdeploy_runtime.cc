@@ -83,12 +83,12 @@ void BindRuntime(pybind11::module& m) {
                  rows, std::vector<FDTensor>(columns));
              for (size_t i = 0; i < rows; ++i) {
                for (size_t j = 0; j < columns; ++j) {
-                 warm_tensors[i][j].dtype =
-                     NumpyDataTypeToFDDataType(warm_datas[i][j].dtype());
-                 warm_tensors[i][j].shape.insert(
+                 auto dtype = NumpyDataTypeToFDDataType(warm_datas[i][j].dtype();
+                 std::vector<int64_t> data_shape;
+                 data_shape.insert(
                      warm_tensors[i][j].shape.begin(), warm_datas[i][j].shape(),
                      warm_datas[i][j].shape() + warm_datas[i][j].ndim());
-                 warm_tensors[i][j].data.resize(warm_datas[i][j].nbytes());
+                 warm_tensors[i][j].Resize(data_shape, dtype);
                  memcpy(warm_tensors[i][j].Data(),
                         warm_datas[i][j].mutable_data(),
                         warm_datas[i][j].nbytes());
