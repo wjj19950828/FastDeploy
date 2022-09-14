@@ -56,6 +56,7 @@ setup_configs["ENABLE_POROS_BACKEND"] = os.getenv("ENABLE_POROS_BACKEND",
                                                   "OFF")
 setup_configs["BUILD_DEMO"] = os.getenv("BUILD_DEMO", "ON")
 setup_configs["ENABLE_VISION"] = os.getenv("ENABLE_VISION", "ON")
+setup_configs["ENABLE_TEXT"] = os.getenv("ENABLE_TEXT", "ON")
 setup_configs["ENABLE_TRT_BACKEND"] = os.getenv("ENABLE_TRT_BACKEND", "OFF")
 setup_configs["WITH_GPU"] = os.getenv("WITH_GPU", "OFF")
 setup_configs["TRT_DIRECTORY"] = os.getenv("TRT_DIRECTORY", "UNDEFINED")

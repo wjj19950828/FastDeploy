@@ -356,12 +356,12 @@ bool Runtime::Init(const RuntimeOption& _option) {
     FDASSERT(option.device == Device::CPU || option.device == Device::GPU,
              "Backend::ORT only supports Device::CPU/Device::GPU.");
     CreateOrtBackend();
-    FDINFO << "Runtime initialized with Backend::ORT." << std::endl;
+    FDINFO << "Runtime initialized with Backend::ORT in device " << Str(option.device) << "." << std::endl;
   } else if (option.backend == Backend::TRT) {
     FDASSERT(option.device == Device::GPU,
              "Backend::TRT only supports Device::GPU.");
     CreateTrtBackend();
-    FDINFO << "Runtime initialized with Backend::TRT." << std::endl;
+    FDINFO << "Runtime initialized with Backend::TRT in device " << Str(option.device) << "." << std::endl;
   } else if (option.backend == Backend::PDINFER) {
     FDASSERT(option.device == Device::CPU || option.device == Device::GPU,
              "Backend::TRT only supports Device::CPU/Device::GPU.");
@@ -376,13 +376,13 @@ bool Runtime::Init(const RuntimeOption& _option) {
         option.model_format == Frontend::TORCHSCRIPT,
         "Backend::POROS only supports model format of Frontend::TORCHSCRIPT.");
     // CreatePorosBackend();
-    FDINFO << "Runtime initialized with Backend::PDINFER." << std::endl;
+    FDINFO << "Runtime initialized with Backend::PDINFER in device " << Str(option.device) << "." << std::endl;
     return true;
   } else if (option.backend == Backend::OPENVINO) {
     FDASSERT(option.device == Device::CPU,
              "Backend::OPENVINO only supports Device::CPU");
     CreateOpenVINOBackend();
-    FDINFO << "Runtime initialized with Backend::OPENVINO." << std::endl;
+    FDINFO << "Runtime initialized with Backend::OPENVINO in device " << Str(option.device) << "." << std::endl;
   } else {
     FDERROR << "Runtime only support "
                "Backend::ORT/Backend::TRT/Backend::PDINFER/Backend::POROS as "
