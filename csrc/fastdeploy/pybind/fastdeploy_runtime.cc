@@ -79,6 +79,7 @@ void BindRuntime(pybind11::module& m) {
               const RuntimeOption& _option) {
              size_t rows = warm_datas.size();
              size_t columns = warm_datas[0].size();
+             std::cout << "test_wjj0000: " << rows << " " << columns << std::endl;
              std::vector<std::vector<FDTensor>> warm_tensors(
                  rows, std::vector<FDTensor>(columns));
              for (size_t i = 0; i < rows; ++i) {
@@ -89,7 +90,8 @@ void BindRuntime(pybind11::module& m) {
                      warm_tensors[i][j].shape.begin(), warm_datas[i][j].shape(),
                      warm_datas[i][j].shape() + warm_datas[i][j].ndim());
                  warm_tensors[i][j].Resize(data_shape, dtype);
-                 memcpy(warm_tensors[i][j].Data(),
+                 std::cout << "test_wjj: " << data_shape.size() << std::endl;
+                 memcpy(warm_tensors[i][j].MutableData(),
                         warm_datas[i][j].mutable_data(),
                         warm_datas[i][j].nbytes());
                }
