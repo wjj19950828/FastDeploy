@@ -88,19 +88,15 @@ at::Tensor CreatePorosValue(FDTensor& tensor, bool is_backend_cuda) {
   auto data_type = GetPorosDtype(tensor.dtype);
   size_t numel = tensor.Numel();
   at::Tensor poros_value;
-  std::cout << "test_wjj111111111:" << std::endl;
   if (is_backend_cuda) {
     poros_value = std::move(at::empty(tensor.shape, {at::kCUDA}).to(data_type).contiguous());
   } else {
     poros_value = std::move(at::empty(tensor.shape, {at::kCPU}).to(data_type).contiguous());
   }
-  std::cout << "test_wjj22222222:" << std::endl;
   if (data_type == at::kFloat) {
     if (is_backend_cuda) {
-      std::cout << "test_wjj33333333:" << std::endl;
       cudaMemcpy(poros_value.data_ptr(), static_cast<void*>(tensor.Data()),
             numel * sizeof(float), cudaMemcpyHostToDevice);
-      std::cout << "test_wjj44444444:" << std::endl;
     } else {
       memcpy(poros_value.data_ptr(), static_cast<void*>(tensor.Data()),
               numel * sizeof(float));
@@ -132,10 +128,6 @@ at::Tensor CreatePorosValue(FDTensor& tensor, bool is_backend_cuda) {
   } else {
     FDASSERT(false, "Unrecognized data type while calling PorosBackend::CreatePorosValue().");
   }
-  // to cuda
-  // if (is_backend_cuda) {
-  //   poros_value = poros_value.to(at::kCUDA);
-  // }
   return poros_value;
 }
 
@@ -147,13 +139,10 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
       shape.push_back(sizes[i]);
     }
     auto fd_dtype = GetFdDtype(data_type);
-    // fd_tensor->shape = shape;
-    // fd_tensor->dtype = fd_dtype;
     fd_tensor->Resize(shape, fd_dtype);
     size_t numel = tensor.numel();
     // at::Tensor -> FDTensor
     if (data_type == at::kFloat) {
-        // fd_tensor->data.resize(numel * sizeof(float));
         if (is_backend_cuda) {
           cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(float), cudaMemcpyDeviceToHost);
         } else {
@@ -162,7 +151,6 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
         }
         return;
     } else if (data_type == at::kInt) {
-        // fd_tensor->data.resize(numel * sizeof(int32_t));
         if (is_backend_cuda) {
           cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(int32_t), cudaMemcpyDeviceToHost);
         } else {
@@ -171,7 +159,6 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
         }
         return;
     } else if (data_type == at::kLong) {
-        // fd_tensor->data.resize(numel * sizeof(int64_t));
         if (is_backend_cuda) {
           cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(int64_t), cudaMemcpyDeviceToHost);
         } else {
@@ -180,7 +167,6 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
         }
         return;
     } else if (data_type == at::kDouble) {
-        // fd_tensor->data.resize(numel * sizeof(double));
         if (is_backend_cuda) {
           cudaMemcpy(fd_tensor->Data(), tensor.data_ptr(), numel * sizeof(double), cudaMemcpyDeviceToHost);
         } else {
@@ -190,42 +176,4 @@ void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor, bool is_back
         return;
     }
 }
-
-// void CopyTensorToCpu(const at::Tensor& tensor, FDTensor* fd_tensor) {
-//     const auto data_type = tensor.scalar_type();
-//     std::vector<int64_t> shape;
-//     auto sizes = tensor.sizes();
-//     for (size_t i = 0; i < sizes.size(); i++) {
-//       shape.push_back(sizes[i]);
-//     }
-//     // TODO(wangjunjie06) Maybe skip memory copy is a better choice
-//     // use SetExternalData
-//     auto fd_dtype = GetFdDtype(data_type);
-//     fd_tensor->shape = shape;
-//     fd_tensor->dtype = fd_dtype;
-//     size_t numel = tensor.numel();
-//     // at::Tensor -> FDTensor
-//     if (data_type == at::kFloat) {
-//         fd_tensor->data.resize(numel * sizeof(float));
-//         memcpy(fd_tensor->Data(), tensor.data_ptr(),
-//             numel * sizeof(float));
-//         return;
-//     } else if (data_type == at::kInt) {
-//         fd_tensor->data.resize(numel * sizeof(int32_t));
-//         memcpy(fd_tensor->Data(), tensor.data_ptr(),
-//             numel * sizeof(int32_t));
-//         return;
-//     } else if (data_type == at::kLong) {
-//         fd_tensor->data.resize(numel * sizeof(int64_t));
-//         memcpy(fd_tensor->Data(), tensor.data_ptr(),
-//             numel * sizeof(int64_t));
-//         return;
-//     } else if (data_type == at::kDouble) {
-//         fd_tensor->data.resize(numel * sizeof(double));
-//         memcpy(fd_tensor->Data(), tensor.data_ptr(),
-//             numel * sizeof(double));
-//         return;
-//     }
-// }
-
 } // namespace fastdeploy
