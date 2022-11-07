@@ -14,15 +14,14 @@
 #pragma once
 #include "fastdeploy/core/fd_tensor.h"
 #include "fastdeploy/vision/common/processors/utils.h"
+#include "fastdeploy/vision/common/processors/proc_lib.h"
 #include "opencv2/core/core.hpp"
 
 namespace fastdeploy {
 namespace vision {
 
-enum class FASTDEPLOY_DECL ProcLib { DEFAULT, OPENCV, FLYCV };
 enum Layout { HWC, CHW };
 
-FASTDEPLOY_DECL std::ostream& operator<<(std::ostream& out, const ProcLib& p);
 
 struct FASTDEPLOY_DECL Mat {
   explicit Mat(const cv::Mat& mat) {
@@ -44,6 +43,9 @@ struct FASTDEPLOY_DECL Mat {
     mat_type = ProcLib::FLYCV;
   }
 #endif
+
+  Mat(const Mat& mat) = default;
+  Mat& operator=(const Mat& mat) = default;
 
   // Careful if you use this interface
   // this only used if you don't want to write
@@ -129,7 +131,31 @@ struct FASTDEPLOY_DECL Mat {
 
   ProcLib mat_type = ProcLib::OPENCV;
   Layout layout = Layout::HWC;
+
+  // Create FD Mat from FD Tensor. This method only create a
+  // new FD Mat with zero copy and it's data pointer is reference
+  // to the original memory buffer of input FD Tensor. Carefully,
+  // any operation on this Mat may change memory that points to
+  // FDTensor. We assume that the memory Mat points to is mutable.
+  // This method will create a FD Mat according to current global
+  // default ProcLib (OPENCV,FLYCV,...).
+  static Mat Create(const FDTensor& tensor);
+  static Mat Create(const FDTensor& tensor, ProcLib lib);
+  static Mat Create(int height, int width, int channels,
+                    FDDataType type, void* data);
+  static Mat Create(int height, int width, int channels,
+                    FDDataType type, void* data, ProcLib lib);
 };
+
+typedef Mat FDMat;
+/*
+ * @brief Wrap a cv::Mat to FDMat, there's no memory copy, memory buffer is managed by user
+ */
+FASTDEPLOY_DECL FDMat WrapMat(const cv::Mat& image);
+/*
+ * Warp a vector<cv::Mat> to vector<FDMat>, there's no memory copy, memory buffer is managed by user
+ */
+FASTDEPLOY_DECL std::vector<FDMat> WrapMat(const std::vector<cv::Mat>& images);
 
 }  // namespace vision
 }  // namespace fastdeploy
