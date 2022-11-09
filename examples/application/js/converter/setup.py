@@ -1,6 +1,9 @@
 import setuptools
 
-PY_MODILES = ["convertToPaddleJSModel", "convertModel", "optimizeModel", "pruningModel", "rnn", "fuseOps"]
+PY_MODILES = [
+    "convertToPaddleJSModel", "convertModel", "optimizeModel", "pruningModel",
+    "rnn", "fuseOps"
+]
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -23,9 +26,7 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        "paddlepaddle >= 2.0.0",
-        "paddlejslite >= 0.0.2",
-        "numpy"
+        "paddlepaddle >= 2.0.0", "paddlejslite >= 0.0.2", "numpy"
     ],
     entry_points={
         "console_scripts": [
@@ -33,5 +34,4 @@ setuptools.setup(
             "pdjsConvertModel = convertModel:main",
             "pdjsOptimizeModel = optimizeModel:main"
         ]
-    }
-)
+    })

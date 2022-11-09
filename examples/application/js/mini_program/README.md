@@ -24,7 +24,7 @@
 * [申请微信小程序账号](https://mp.weixin.qq.com/)
 * [微信小程序开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)
 * 前端开发环境准备：node、npm
-* 小程序管理后台配置服务器域名，或打开开发者工具【不校验合法域名】 
+* 小程序管理后台配置服务器域名，或打开开发者工具【不校验合法域名】
 
 详情参考:https://mp.weixin.qq.com/wxamp/devprofile/get_profile?token=1132303404&lang=zh_CN)
 
@@ -75,7 +75,7 @@ const plugin = requirePlugin('paddlejs-plugin');
 plugin.register(paddlejs, wx);
 
 // 初始化推理引擎
-const runner = new paddlejs.Runner({modelPath, feedShape, mean, std}); 
+const runner = new paddlejs.Runner({modelPath, feedShape, mean, std});
 await runner.init();
 
 // 获取图像信息
@@ -122,5 +122,3 @@ wx.canvasGetImageData({
 - 4.5 手机调试或运行时出现 长时间无反应等提示
 
     **答:** 请继续等待，模型推理需要一定时间
-
-

@@ -31,7 +31,7 @@ paddle源码实现：https://github.com/PaddlePaddle/Paddle/blob/develop/paddle/
 		// 隐藏层层数，代表循环次数
 		num_layers: 2
 	}
-	
+
 	Input: [
 		transpose_1.tmp_0[25, 1, 288]
 	]
@@ -42,13 +42,13 @@ paddle源码实现：https://github.com/PaddlePaddle/Paddle/blob/develop/paddle/
 	]
 
 	WeightList: [
-		lstm_cell_0.w_0[192, 288], lstm_cell_0.w_1[192, 48], 
+		lstm_cell_0.w_0[192, 288], lstm_cell_0.w_1[192, 48],
 		lstm_cell_1.w_0[192, 288], lstm_cell_1.w_1[192, 48],
-		lstm_cell_2.w_0[192, 96], lstm_cell_2.w_1[192, 48], 
+		lstm_cell_2.w_0[192, 96], lstm_cell_2.w_1[192, 48],
 		lstm_cell_3.w_0[192, 96], lstm_cell_3.w_1[192, 48],
 		lstm_cell_0.b_0[192], lstm_cell_0.b_1[192],
 		lstm_cell_1.b_0[192], lstm_cell_1.b_1[192],
-		lstm_cell_2.b_0[192], lstm_cell_2.b_1[192], 
+		lstm_cell_2.b_0[192], lstm_cell_2.b_1[192],
 		lstm_cell_3.b_0[192], lstm_cell_3.b_1[192]
 	]
 
@@ -78,5 +78,3 @@ paddle源码实现：https://github.com/PaddlePaddle/Paddle/blob/develop/paddle/
 4）rnn_hidden
 计算方式：将rnn_matmul op输出结果分割成4份，每份执行不同激活函数计算，最后输出lstm_x_y.tmp_h[1,  1,  48]。x∈[0, 3]，y∈[0, 24]。
 详见算子实现：[rnn_hidden](../paddlejs-backend-webgl/src/ops/shader/rnn/rnn_hidden.ts)
-
-

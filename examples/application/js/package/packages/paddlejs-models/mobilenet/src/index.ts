@@ -55,4 +55,3 @@ export async function classify(image) {
     const result = mobilenetMap[`${maxItem}`];
     return result;
 }
-

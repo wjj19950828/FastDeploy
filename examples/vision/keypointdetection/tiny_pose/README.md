@@ -4,7 +4,7 @@
 
 - [PaddleDetection release/2.5](https://github.com/PaddlePaddle/PaddleDetection/tree/release/2.5)
 
-目前FastDeploy支持如下模型的部署 
+目前FastDeploy支持如下模型的部署
 
 - [PP-TinyPose系列模型](https://github.com/PaddlePaddle/PaddleDetection/tree/release/2.5/configs/keypoint/tiny_pose/README.md)
 

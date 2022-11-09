@@ -31,7 +31,8 @@ def test_pptracking():
     model_file = os.path.join(model_path, "model.pdmodel")
     params_file = os.path.join(model_path, "model.pdiparams")
     config_file = os.path.join(model_path, "infer_cfg.yml")
-    model = fd.vision.tracking.PPTracking(model_file, params_file, config_file, runtime_option=rc.test_option)
+    model = fd.vision.tracking.PPTracking(
+        model_file, params_file, config_file, runtime_option=rc.test_option)
     cap = cv2.VideoCapture("./resources/person.mp4")
     frame_id = 0
     while True:
@@ -40,12 +41,16 @@ def test_pptracking():
             break
         result = model.predict(frame)
         # compare diff
-        expect = pickle.load(open("resources/pptracking/frame" + str(frame_id) + ".pkl", "rb"))
-        diff_boxes = np.fabs(np.array(expect["boxes"]) - np.array(result.boxes))
-        diff_scores = np.fabs(np.array(expect["scores"]) - np.array(result.scores))
+        expect = pickle.load(
+            open("resources/pptracking/frame" + str(frame_id) + ".pkl", "rb"))
+        diff_boxes = np.fabs(
+            np.array(expect["boxes"]) - np.array(result.boxes))
+        diff_scores = np.fabs(
+            np.array(expect["scores"]) - np.array(result.scores))
         diff = max(diff_boxes.max(), diff_scores.max())
         thres = 1e-05
-        assert diff < thres, "The label diff is %f, which is bigger than %f" % (diff, thres)
+        assert diff < thres, "The label diff is %f, which is bigger than %f" % (
+            diff, thres)
         frame_id = frame_id + 1
         cv2.waitKey(30)
         if frame_id >= 10:

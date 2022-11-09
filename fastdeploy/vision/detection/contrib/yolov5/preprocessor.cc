@@ -177,27 +177,27 @@ bool YOLOv5Preprocessor::Run(std::vector<FDMat>* images, std::vector<FDTensor>* 
     return false;
   }
   outputs->resize(1);
+  // Concat all the preprocessed data to a batch tensor
+  std::vector<FDTensor> tensors(images->size()); 
   for (size_t i = 0; i < images->size(); ++i) {
     if (use_cuda_preprocessing_) {
-      if (!CudaPreprocess(&(*images)[i], &(*outputs)[0], im_info)) {
+      if (!CudaPreprocess(&(*images)[i], &tensors[i], im_info)) {
       FDERROR << "Failed to preprocess input image." << std::endl;
       return false;
       }
     } else {
-      if (!Preprocess(&(*images)[i], &(*outputs)[0], im_info)) {
+      if (!Preprocess(&(*images)[i], &tensors[i], im_info)) {
         FDERROR << "Failed to preprocess input image." << std::endl;
         return false;
       }
     }
   }
 
-  // Concat all the preprocessed data to a batch tensor
-  std::vector<FDTensor> tensors(images->size()); 
-  for (size_t i = 0; i < images->size(); ++i) {
-    (*images)[i].ShareWithTensor(&(tensors[i]));
-    tensors[i].ExpandDim(0);
+  if (tensors.size() == 1) {
+    (*outputs)[0] = std::move(tensors[0]);
+  } else {
+    function::Concat(tensors, &((*outputs)[0]), 0);
   }
-  Concat(tensors, &((*outputs)[0]), 0);
   return true;
 }
 

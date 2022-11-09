@@ -18,6 +18,7 @@ import os
 import numpy as np
 import runtime_config as rc
 
+
 def test_facealignment_pfld():
     model_url = "https://bj.bcebos.com/paddlehub/fastdeploy/pfld-106-lite.onnx"
     input_url = "https://bj.bcebos.com/paddlehub/fastdeploy/facealign_input.png"
@@ -34,8 +35,9 @@ def test_facealignment_pfld():
     for i in range(2):
         result = model.predict(im)
         expect = np.load("resources/result_landmarks.npy")
-    
+
         diff = np.fabs(np.array(result.landmarks) - expect)
         thres = 1e-04
-        assert diff.max() < thres, "The diff is %f, which is bigger than %f" % (
-            diff.max(), thres)
+        assert diff.max(
+        ) < thres, "The diff is %f, which is bigger than %f" % (diff.max(),
+                                                                thres)

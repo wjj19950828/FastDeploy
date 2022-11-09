@@ -45,45 +45,37 @@ class FASTDEPLOY_DECL YOLOv5 : public FastDeployModel {
    * \param[in] im The input image data, comes from cv::imread(), is a 3-D array with layout HWC, BGR format
    * \param[in] result The output detection result will be writen to this structure
    * \param[in] conf_threshold confidence threashold for postprocessing, default is 0.25
-   * \param[in] nms_iou_threshold iou threashold for NMS, default is 0.5
+   * \param[in] nms_threshold iou threashold for NMS, default is 0.5
    * \return true if the prediction successed, otherwise false
    */
   virtual bool Predict(cv::Mat* im, DetectionResult* result,
                        float conf_threshold = 0.25,
-                       float nms_iou_threshold = 0.5);
+                       float nms_threshold = 0.5);
 
   /** \brief Predict the detection result for an input image
    *
    * \param[in] img The input image data, comes from cv::imread(), is a 3-D array with layout HWC, BGR format
    * \param[in] result The output detection result will be writen to this structure
-   * \param[in] conf_threshold confidence threashold for postprocessing, default is 0.25
-   * \param[in] nms_iou_threshold iou threashold for NMS, default is 0.5
    * \return true if the prediction successed, otherwise false
    */
-  virtual bool Predict(const cv::Mat& img, DetectionResult* result,
-                       float conf_threshold = 0.25,
-                       float nms_iou_threshold = 0.5);
+  virtual bool Predict(const cv::Mat& img, DetectionResult* result);
 
   /** \brief Predict the detection results for a batch of input images
    *
    * \param[in] imgs, The input image list, each element comes from cv::imread()
    * \param[in] results The output classification result list
-   * \param[in] conf_threshold confidence threashold for postprocessing, default is 0.25
-   * \param[in] nms_iou_threshold iou threashold for NMS, default is 0.5
    * \return true if the prediction successed, otherwise false
    */
   virtual bool BatchPredict(const std::vector<cv::Mat>& imgs,
-                            std::vector<DetectionResult>* results,
-                            float conf_threshold = 0.25,
-                            float nms_iou_threshold = 0.5);
+                            std::vector<DetectionResult>* results);
 
-  /// Get preprocessor reference of PaddleClasModel
-  virtual PaddleClasPreprocessor& GetPreprocessor() {
+  /// Get preprocessor reference of YOLOv5
+  virtual YOLOv5Preprocessor& GetPreprocessor() {
     return preprocessor_;
   }
 
-  /// Get postprocessor reference of PaddleClasModel
-  virtual PaddleClasPostprocessor& GetPostprocessor() {
+  /// Get postprocessor reference of YOLOv5
+  virtual YOLOv5Postprocessor& GetPostprocessor() {
     return postprocessor_;
   }
 

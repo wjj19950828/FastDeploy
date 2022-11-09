@@ -2,7 +2,7 @@
 
 This directory help to generate C++ API documents for FastDeploy.
 
-In this directory, execute the following command, 
+In this directory, execute the following command,
 
 ```
 sudo apt-get install doxygen

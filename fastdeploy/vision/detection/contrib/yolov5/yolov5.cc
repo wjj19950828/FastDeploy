@@ -14,12 +14,6 @@
 
 #include "fastdeploy/vision/detection/contrib/yolov5.h"
 
-#include "fastdeploy/utils/perf.h"
-#include "fastdeploy/vision/utils/utils.h"
-#ifdef ENABLE_CUDA_PREPROCESS
-#include "fastdeploy/vision/utils/cuda_utils.h"
-#endif  // ENABLE_CUDA_PREPROCESS
-
 namespace fastdeploy {
 namespace vision {
 namespace detection {
@@ -67,18 +61,17 @@ YOLOv5::~YOLOv5() {
 #endif  // ENABLE_CUDA_PREPROCESS
 }
 
-bool YOLOv5::Predict(cv::Mat* im, DetectionResult* result, float conf_threshold,
-                     float nms_iou_threshold) {
+bool YOLOv5::Predict(cv::Mat* im, DetectionResult* result, float conf_threshold, float nms_threshold) {
+  postprocessor_.SetConfThreshold(conf_threshold);
+  postprocessor_.SetNMSThreshold(nms_threshold);
+  
+}
+
+YOLOv5::Predict(const cv::Mat* im, DetectionResult* result) {
 
                      }
 
-YOLOv5::Predict(const cv::Mat* im, DetectionResult* result, float conf_threshold,
-                     float nms_iou_threshold) {
-
-                     }
-
-YOLOv5::BatchPredict(const std::vector<cv::Mat>& images, std::vector<DetectionResult>* result, float conf_threshold,
-                     float nms_iou_threshold) {
+YOLOv5::BatchPredict(const std::vector<cv::Mat>& images, std::vector<DetectionResult>* results) {
   std::map<std::string, std::array<float, 2>> im_info;
 
   std::vector<FDMat> fd_images = WrapMat(images);
@@ -93,7 +86,7 @@ YOLOv5::BatchPredict(const std::vector<cv::Mat>& images, std::vector<DetectionRe
     return false;
   }
 
-  if (!postprocessor_.Run(reused_output_tensors, results)) {
+  if (!postprocessor_.Run(reused_output_tensors_, results, &im_info)) {
     FDERROR << "Failed to postprocess the inference results by runtime." << std::endl;
     return false;
   }

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+
 def splice_rnn_op(model_info, rnn_index):
 
     global input_shape
@@ -26,7 +27,8 @@ def splice_rnn_op(model_info, rnn_index):
         end = len(list)
 
         if end < max_concat_num:
-            concat_output_name = 'lstm_' + str(index - 1) + '_' + str(num) + '.tmp_concat'
+            concat_output_name = 'lstm_' + str(index - 1) + '_' + str(
+                num) + '.tmp_concat'
             # 非最后一层遍历，将concat作为下一层输入
             if index < is_bidirec * num_layers - 1:
                 rnn_input_name = concat_output_name
@@ -42,14 +44,17 @@ def splice_rnn_op(model_info, rnn_index):
                 'inputs': {
                     'X': []
                 },
-                'outputs': {'Out': [concat_output_name]},
+                'outputs': {
+                    'Out': [concat_output_name]
+                },
                 'type': 'concat'
             }
 
             concat_output_shape = 0
 
             for x in range(0, end):
-                x_input_name = 'lstm_' + str(index - 1) + '_' + str(list[x]) + '.tmp_concat'
+                x_input_name = 'lstm_' + str(index - 1) + '_' + str(list[
+                    x]) + '.tmp_concat'
                 concat_op['inputs']['X'].append(x_input_name)
                 concat_output_shape += vars[x_input_name]['shape'][0]
 
@@ -74,7 +79,8 @@ def splice_rnn_op(model_info, rnn_index):
                     new_list.append(list[n])
                 break
 
-            concat_output_name = 'lstm_' + str(index - 1) + '_' + str(num) + '.tmp_concat'
+            concat_output_name = 'lstm_' + str(index - 1) + '_' + str(
+                num) + '.tmp_concat'
             # concat_list长度为max_concat_num && 最后一层遍历，将rnn_output_name赋给最后一个concat
             if end == max_concat_num and index == is_bidirec * num_layers - 1:
                 concat_output_name = rnn_output_name
@@ -86,14 +92,17 @@ def splice_rnn_op(model_info, rnn_index):
                 'inputs': {
                     'X': []
                 },
-                'outputs': {'Out': [concat_output_name]},
+                'outputs': {
+                    'Out': [concat_output_name]
+                },
                 'type': 'concat'
             }
 
             concat_output_shape = 0
 
             for x in range(0, max_concat_num):
-                x_input_name = 'lstm_' + str(index - 1) + '_' + str(list[i + x]) + '.tmp_concat'
+                x_input_name = 'lstm_' + str(index - 1) + '_' + str(list[
+                    i + x]) + '.tmp_concat'
                 concat_op['inputs']['X'].append(x_input_name)
                 concat_output_shape += vars[x_input_name]['shape'][0]
 
@@ -102,7 +111,7 @@ def splice_rnn_op(model_info, rnn_index):
                 'persistable': False,
                 'shape': [concat_output_shape, 1, weight_1_shape[1] * 2]
             }
-        
+
             ops.append(concat_op)
             vars[concat_output_name] = concat_var
             new_list.append(num)
@@ -118,8 +127,10 @@ def splice_rnn_op(model_info, rnn_index):
         last_cell = op['inputs']['PreState'][1]
         weight_list_0 = op['inputs']['WeightList'][index * 2]
         weight_list_1 = op['inputs']['WeightList'][index * 2 + 1]
-        weight_list_2 = op['inputs']['WeightList'][(index + num_layers * is_bidirec) * 2]
-        weight_list_3 = op['inputs']['WeightList'][(index + num_layers * is_bidirec) * 2 + 1]
+        weight_list_2 = op['inputs']['WeightList'][(
+            index + num_layers * is_bidirec) * 2]
+        weight_list_3 = op['inputs']['WeightList'][(index + num_layers *
+                                                    is_bidirec) * 2 + 1]
         output_name = 'rnn_origin_' + str(index)
         input_shape = vars[rnn_input_name]['shape']
         batch = input_shape[0]
@@ -140,14 +151,12 @@ def splice_rnn_op(model_info, rnn_index):
             'inputs': {
                 'Input': [rnn_input_name],
                 'PreState': [last_hidden],
-                'WeightList': [
-                    weight_list_0,
-                    weight_list_1,
-                    weight_list_2,
-                    weight_list_3
-                ]
+                'WeightList':
+                [weight_list_0, weight_list_1, weight_list_2, weight_list_3]
             },
-            'outputs': {'Out': [output_name]},
+            'outputs': {
+                'Out': [output_name]
+            },
             'type': 'rnn_origin'
         }
 
@@ -160,9 +169,11 @@ def splice_rnn_op(model_info, rnn_index):
         vars[output_name] = origin_var
 
         for bat in range(batch):
-            matmul_output_name = 'lstm_' + str(index) + '_' + str(bat) + '.tmp_matmul'
+            matmul_output_name = 'lstm_' + str(index) + '_' + str(
+                bat) + '.tmp_matmul'
             cell_output_name = 'lstm_' + str(index) + '_' + str(bat) + '.tmp_c'
-            hidden_output_name = 'lstm_' + str(index) + '_' + str(bat) + '.tmp_h'
+            hidden_output_name = 'lstm_' + str(index) + '_' + str(
+                bat) + '.tmp_h'
 
             matmul_op = {
                 'attrs': {
@@ -176,7 +187,9 @@ def splice_rnn_op(model_info, rnn_index):
                     'PreState': [last_hidden],
                     'WeightList': [weight_list_1]
                 },
-                'outputs': {'Out': [matmul_output_name]},
+                'outputs': {
+                    'Out': [matmul_output_name]
+                },
                 'type': 'rnn_matmul'
             }
 
@@ -198,7 +211,9 @@ def splice_rnn_op(model_info, rnn_index):
                     'X': [matmul_output_name],
                     'Y': [last_cell]
                 },
-                'outputs': {'Out': [cell_output_name]},
+                'outputs': {
+                    'Out': [cell_output_name]
+                },
                 'type': 'rnn_cell'
             }
 
@@ -220,7 +235,9 @@ def splice_rnn_op(model_info, rnn_index):
                     'X': [matmul_output_name],
                     'Y': [last_cell]
                 },
-                'outputs': {'Out': [hidden_output_name]},
+                'outputs': {
+                    'Out': [hidden_output_name]
+                },
                 'type': 'rnn_hidden'
             }
 
@@ -243,9 +260,12 @@ def splice_rnn_op(model_info, rnn_index):
             concat_num = 0
             # concat forword and backword
             for bat in range(batch):
-                x_input_name_0 = 'lstm_' + str(index - 1) + '_' + str(bat) + '.tmp_h'
-                x_input_name_1 = 'lstm_' + str(index) + '_' + str(batch - bat - 1) + '.tmp_h'
-                concat_output_name = 'lstm_' + str(index - 1) + '_' + str(bat) + '.tmp_concat'
+                x_input_name_0 = 'lstm_' + str(index - 1) + '_' + str(
+                    bat) + '.tmp_h'
+                x_input_name_1 = 'lstm_' + str(index) + '_' + str(batch - bat -
+                                                                  1) + '.tmp_h'
+                concat_output_name = 'lstm_' + str(index - 1) + '_' + str(
+                    bat) + '.tmp_concat'
                 concat_op = {
                     'attrs': {
                         'axis': 2
@@ -253,7 +273,9 @@ def splice_rnn_op(model_info, rnn_index):
                     'inputs': {
                         'X': [x_input_name_0, x_input_name_1]
                     },
-                    'outputs': {'Out': [concat_output_name]},
+                    'outputs': {
+                        'Out': [concat_output_name]
+                    },
                     'type': 'concat'
                 }
 

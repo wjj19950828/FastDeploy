@@ -56,7 +56,7 @@
 ## 目录
 
 * <details open> <summary><style="font-size:100px"><b>📖 文档教程（点击可收缩）</b></font></summary>
-    
+
    - 安装文档
         - [预编译库下载安装](docs/cn/build_and_install/download_prebuilt_libraries.md)
         - [GPU部署环境编译安装](docs/cn/build_and_install/gpu.md)
@@ -158,7 +158,7 @@ cv2.imwrite("vis_image.jpg", vis_im)
 
 <details>
 <summary><style="font-size:100px"><b>C++ SDK快速开始（点开查看详情）</b></font></summary>
-    
+
 
 #### 安装
 
@@ -334,12 +334,12 @@ int main(int argc, char* argv[]) {
 | OCR                | [PaddleOCR/PP-OCRv2](examples/vision/ocr/PP-OCRv2)                                        | 2.3+4.4  | ✅       | ❔       | ❔       | ❔                          | --                                   | --                                | --                       | --      |
 | OCR                | [PaddleOCR/PP-OCRv3](examples/vision/ocr/PP-OCRv3)                                        | 2.4+10.6 | ✅       | ❔       | ❔       | ❔                          | ❔                                    | ❔                                 | ❔                        | --      |
 | OCR                | PaddleOCR/PP-OCRv3-tiny                                                                   | 2.4+10.7 | ❔       | ❔       | ❔       | ❔                          | --                                   | --                                | --                       | --      |
-    
-    
+
+
 ## 🌐 Web和小程序部署
 
 <div id="fastdeploy-web-models"></div>
-    
+
 | 任务场景               | 模型                                                                                          | [web_demo](examples/application/js/web_demo) |
 |:------------------:|:-------------------------------------------------------------------------------------------:|:--------------------------------------------:|
 | ---                | ---                                                                                         | [Paddle.js](examples/application/js)         |
@@ -349,7 +349,7 @@ int main(int argc, char* argv[]) {
 | Object Recognition | [GestureRecognition](examples/application/js/web_demo/src/pages/cv/recognition)             | ✅                                            |
 | Object Recognition | [ItemIdentification](examples/application/js/web_demo/src/pages/cv/recognition)             | ✅                                            |
 | OCR                | [PaddleOCR/PP-OCRv3](./examples/application/js/web_demo/src/pages/cv/ocr)                   | ✅                                            |
- 
+
 <div id="fastdeploy-community"></div>
 
 ## 社区交流

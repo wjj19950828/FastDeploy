@@ -30,7 +30,7 @@ int main() {
 
   cv::Mat im = cv::imread("test_det.jpg");
   fastdeploy::vision::DetectionResult result;
-  
+
   assert(model.Predict(&im, &result)); // 判断是否预测成功
 
   std::cout << result.Str() << std::endl;
@@ -82,7 +82,7 @@ make -j
 
 编译完成后，使用如下命令执行可得到预测结果
 ```bash
-./infer_demo 
+./infer_demo
 ```
 执行时如提示`error while loading shared libraries: libxxx.so: cannot open shared object file: No such file...`，说明程序执行时没有找到FastDeploy的库路径，可通过执行如下命令，将FastDeploy的库路径添加到环境变量之后，重新执行二进制程序。
 ```bash

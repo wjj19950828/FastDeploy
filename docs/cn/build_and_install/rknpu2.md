@@ -38,9 +38,9 @@ sudo rknn_install_rk356X.sh
 ```bash
 # 安装必备的包
 sudo apt update -y
-sudo apt install -y python3 
-sudo apt install -y python3-dev 
-sudo apt install -y python3-pip 
+sudo apt install -y python3
+sudo apt install -y python3-dev
+sudo apt install -y python3-pip
 sudo apt install -y gcc
 sudo apt install -y python3-opencv
 sudo apt install -y python3-numpy

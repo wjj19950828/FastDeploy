@@ -97,7 +97,7 @@ voc_melgan_runtime = fd.Runtime(option_4)
 
 
 def depadding(data, chunk_num, chunk_id, block, pad, upsample):
-    """ 
+    """
     Streaming inference removes the result of pad inference
     """
     front_pad = min(chunk_id * block, pad)
@@ -122,8 +122,7 @@ def inference_stream(text):
         part_phone_ids = phone_ids[i].numpy()
         voc_chunk_id = 0
         orig_hs = am_encoder_runtime.infer({
-            'text':
-            part_phone_ids.astype("int64")
+            'text': part_phone_ids.astype("int64")
         })
         orig_hs = orig_hs[0]
 
@@ -138,13 +137,11 @@ def inference_stream(text):
         am_chunk_num = len(hss)
         for i, hs in enumerate(hss):
             am_decoder_output = am_decoder_runtime.infer({
-                'xs':
-                hs.astype("float32")
+                'xs': hs.astype("float32")
             })
 
             am_postnet_output = am_postnet_runtime.infer({
-                'xs':
-                np.transpose(am_decoder_output[0], (0, 2, 1))
+                'xs': np.transpose(am_decoder_output[0], (0, 2, 1))
             })
             am_output_data = am_decoder_output + np.transpose(
                 am_postnet_output[0], (0, 2, 1))
@@ -156,7 +153,8 @@ def inference_stream(text):
             if i == 0:
                 mel_streaming = sub_mel
             else:
-                mel_streaming = np.concatenate((mel_streaming, sub_mel), axis=0)
+                mel_streaming = np.concatenate(
+                    (mel_streaming, sub_mel), axis=0)
 
             # streaming voc
             # 当流式AM推理的mel帧数大于流式voc推理的chunk size，开始进行流式voc 推理
@@ -165,8 +163,7 @@ def inference_stream(text):
                 voc_chunk = mel_streaming[start:end, :]
 
                 sub_wav = voc_melgan_runtime.infer({
-                    'logmel':
-                    voc_chunk.astype("float32")
+                    'logmel': voc_chunk.astype("float32")
                 })
                 sub_wav = depadding(sub_wav[0], voc_chunk_num, voc_chunk_id,
                                     voc_block, voc_pad, voc_upsample)
@@ -200,7 +197,7 @@ if __name__ == '__main__':
         wavs.append(sub_wav.flatten())
         # float32 to int16
         #wav = float2pcm(sub_wav)
-        # to bytes  
+        # to bytes
         #wav_bytes = wav.tobytes()
         #stream.write(wav_bytes)
 

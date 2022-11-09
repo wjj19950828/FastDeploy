@@ -22,7 +22,7 @@ def eval_detection(model,
                    data_dir,
                    ann_file,
                    conf_threshold=None,
-                   nms_iou_threshold=None,
+                   nms_threshold=None,
                    plot=False):
     from .utils import CocoDetection
     from .utils import COCOMetric
@@ -30,16 +30,16 @@ def eval_detection(model,
     from tqdm import trange
     import time
 
-    if conf_threshold is not None or nms_iou_threshold is not None:
-        assert conf_threshold is not None and nms_iou_threshold is not None, "The conf_threshold and nms_iou_threshold should be setted at the same time"
+    if conf_threshold is not None or nms_threshold is not None:
+        assert conf_threshold is not None and nms_threshold is not None, "The conf_threshold and nms_threshold should be setted at the same time"
         assert isinstance(conf_threshold, (
             float,
             int)), "The conf_threshold:{} need to be int or float".format(
                 conf_threshold)
-        assert isinstance(nms_iou_threshold, (
+        assert isinstance(nms_threshold, (
             float,
-            int)), "The nms_iou_threshold:{} need to be int or float".format(
-                nms_iou_threshold)
+            int)), "The nms_threshold:{} need to be int or float".format(
+                nms_threshold)
     eval_dataset = CocoDetection(
         data_dir=data_dir, ann_file=ann_file, shuffle=False)
     all_image_info = eval_dataset.file_list
@@ -61,10 +61,10 @@ def eval_detection(model,
             start_time = time.time()
         im = cv2.imread(image_info["image"])
         im_id = image_info["im_id"]
-        if conf_threshold is None and nms_iou_threshold is None:
+        if conf_threshold is None and nms_threshold is None:
             result = model.predict(im.copy())
         else:
-            result = model.predict(im, conf_threshold, nms_iou_threshold)
+            result = model.predict(im, conf_threshold, nms_threshold)
         pred = {
             'bbox':
             [[c] + [s] + b

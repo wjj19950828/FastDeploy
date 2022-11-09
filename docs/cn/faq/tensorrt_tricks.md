@@ -1,6 +1,6 @@
 # TensorRT使用问题
 
-## 1. 运行TensorRT过程中，出现如下日志提示 
+## 1. 运行TensorRT过程中，出现如下日志提示
 ```bash
 [WARNING] fastdeploy/backends/tensorrt/trt_backend.cc(552)::CreateTrtEngineFromOnnx	Cannot build engine right now, because there's dynamic input shape exists, list as below,
 [WARNING] fastdeploy/backends/tensorrt/trt_backend.cc(556)::CreateTrtEngineFromOnnx	Input 0: TensorInfo(name: image, shape: [-1, 3, 320, 320], dtype: FDDataType::FP32)
@@ -36,5 +36,3 @@ TensorRT每次构建模型的过程较长，FastDeploy提供了Cache机制帮助
 - 如若发现传入的文件路径存在，则会跳过构建TensorRT引擎，直接加载此文件并还原成TensorRT引擎
 
 因此，如若有修改模型，推理配置（例如Float32改成Float16)，需先删除本地的cache文件，避免出错。
-
-

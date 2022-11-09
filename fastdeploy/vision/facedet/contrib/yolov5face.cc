@@ -152,7 +152,7 @@ bool YOLOv5Face::Preprocess(
 bool YOLOv5Face::Postprocess(
     FDTensor& infer_result, FaceDetectionResult* result,
     const std::map<std::string, std::array<float, 2>>& im_info,
-    float conf_threshold, float nms_iou_threshold) {
+    float conf_threshold, float nms_threshold) {
   // infer_result: (1,n,16) 16=4+1+10+1
   FDASSERT(infer_result.shape[0] == 1, "Only support batch =1 now.");
   if (infer_result.dtype != FDDataType::FP32) {
@@ -198,7 +198,7 @@ bool YOLOv5Face::Postprocess(
     return true;
   }
 
-  utils::NMS(result, nms_iou_threshold);
+  utils::NMS(result, nms_threshold);
 
   // scale the boxes to the origin image shape
   auto iter_out = im_info.find("output_shape");
@@ -240,7 +240,7 @@ bool YOLOv5Face::Postprocess(
 }
 
 bool YOLOv5Face::Predict(cv::Mat* im, FaceDetectionResult* result,
-                         float conf_threshold, float nms_iou_threshold) {
+                         float conf_threshold, float nms_threshold) {
   Mat mat(*im);
   std::vector<FDTensor> input_tensors(1);
 
@@ -264,7 +264,7 @@ bool YOLOv5Face::Predict(cv::Mat* im, FaceDetectionResult* result,
   }
 
   if (!Postprocess(output_tensors[0], result, im_info, conf_threshold,
-                   nms_iou_threshold)) {
+                   nms_threshold)) {
     FDERROR << "Failed to post process." << std::endl;
     return false;
   }

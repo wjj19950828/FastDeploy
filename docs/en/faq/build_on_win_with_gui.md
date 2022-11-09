@@ -45,7 +45,7 @@ Step 2: Customize the SDK installation path and modify CMAKE_INSTALL_PREFIX
 
 ![image](https://user-images.githubusercontent.com/31974251/192095961-5f6e348a-c30b-4473-8331-8beefb7cd2e6.png)
 
-As the default installation path is C drive, we can modify CMAKE_INSTALL_PREFIX to specify our own installation path. Here we modify the installation path to the `build\fastdeploy-win-x64-0.2.1` directory. 
+As the default installation path is C drive, we can modify CMAKE_INSTALL_PREFIX to specify our own installation path. Here we modify the installation path to the `build\fastdeploy-win-x64-0.2.1` directory.
 
 ![image](https://user-images.githubusercontent.com/31974251/192096055-8a276a9e-6017-4447-9ded-b95c5579d663.png)
 
@@ -72,7 +72,7 @@ Step 2: Customize the SDK installation path and modify CMAKE_INSTALL_PREFIX
 ![image](https://user-images.githubusercontent.com/31974251/192099125-81fc8217-e51f-4039-9421-ba7a09c0027c.png)
 
 
-As the default installation path is C drive, we can modify CMAKE_INSTALL_PREFIX to specify our own installation path. Here we modify the installation path to `build\fastdeploy-win-x64-gpu-0.2.1` directory. 
+As the default installation path is C drive, we can modify CMAKE_INSTALL_PREFIX to specify our own installation path. Here we modify the installation path to `build\fastdeploy-win-x64-gpu-0.2.1` directory.
 
 
 ### How to Use Visual Studio 2019 IDE for Compliation
@@ -85,11 +85,11 @@ Step 1: Click "Generate" to generate the sln solution and open it with Visual St
 
 During this process, the model will download some resources needed for compilation by default. Developers can ignore the dev warning of cmake. After the generation is completed, the following interface will be on display.
 
-CPU version SDK: 
+CPU version SDK:
 
 ![image](https://user-images.githubusercontent.com/31974251/192096478-faa570bd-7569-43c3-ad79-cc6be5b605e3.png)
 
-GPU Version SDK: 
+GPU Version SDK:
 
 ![image](https://user-images.githubusercontent.com/31974251/192099583-300e4680-1089-45cf-afaa-d2afda8fd436.png)
 
@@ -106,7 +106,7 @@ CPU version SDK compiled successfully!
 
 ![image](https://user-images.githubusercontent.com/31974251/192097020-979bd7a3-1cdd-4fb5-a931-864c5372933d.png)
 
-GPU version SDK compiled successfully! 
+GPU version SDK compiled successfully!
 
 ![image](https://user-images.githubusercontent.com/31974251/192099902-4b661f9a-7691-4f7f-b573-92ca9397a890.png)
 

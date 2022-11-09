@@ -42,7 +42,7 @@ unzip mb_melgan_csmsc_onnx_0.2.0.zip
 **For the convenience of users, we recommend that you use the command `docker -v` to map $PWD (streaming_pp_tts and the configuration and code of the model contained therein) to the docker path `/models`. You can also use other methods, but regardless of which method you use, the final model directory and structure in the docker are shown in the following figure.**
 
 ```
-/models 
+/models
 │
 └───streaming_pp_tts                                                #Directory of the entire service model
     │   config.pbtxt                                                #Configuration file of service model

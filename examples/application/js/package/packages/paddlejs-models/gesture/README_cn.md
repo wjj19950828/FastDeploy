@@ -25,4 +25,3 @@ https://paddlejs.baidu.com/gesture
 
 # 效果
 <img alt="gesture" src="https://user-images.githubusercontent.com/43414102/156379706-065a4f57-cc75-4457-857a-18619589492f.gif">
-

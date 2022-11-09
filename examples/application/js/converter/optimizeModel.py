@@ -10,6 +10,7 @@ from packaging import version
 
 lite_version = pkg_resources.get_distribution("paddlelite").version
 
+
 def optimizeModel(inputDir, modelPath, paramPath, outputDir):
     """ 使用opt python接口执行模型优化 """
     opt = lite.Opt()
@@ -30,9 +31,14 @@ def optimizeModel(inputDir, modelPath, paramPath, outputDir):
 def main():
     try:
         p = argparse.ArgumentParser('模型优化参数解析')
-        p.add_argument('--inputDir', help='fluid模型所在目录。当且仅当使用分片参数文件时使用该参数。将过滤modelPath和paramsPath参数，且模型文件名必须为`__model__`', required=False)
-        p.add_argument('--modelPath', help='fluid模型文件所在路径，使用合并参数文件时使用该参数', required=False)
-        p.add_argument('--paramPath', help='fluid参数文件所在路径，使用合并参数文件时使用该参数', required=False)
+        p.add_argument(
+            '--inputDir',
+            help='fluid模型所在目录。当且仅当使用分片参数文件时使用该参数。将过滤modelPath和paramsPath参数，且模型文件名必须为`__model__`',
+            required=False)
+        p.add_argument(
+            '--modelPath', help='fluid模型文件所在路径，使用合并参数文件时使用该参数', required=False)
+        p.add_argument(
+            '--paramPath', help='fluid参数文件所在路径，使用合并参数文件时使用该参数', required=False)
         p.add_argument("--outputDir", help='优化后fluid模型目录，必要参数', required=True)
 
         args = p.parse_args()
@@ -44,7 +50,8 @@ def main():
         optimizeModel(inputDir, modelPath, paramPath, outputDir)
 
     except Exception as identifier:
-        print("\033[31mA fetal error occured. Failed to optimize model.\033[0m")
+        print(
+            "\033[31mA fetal error occured. Failed to optimize model.\033[0m")
         print(traceback.format_exc())
         pass
 

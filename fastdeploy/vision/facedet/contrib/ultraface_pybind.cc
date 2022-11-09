@@ -21,10 +21,10 @@ void BindUltraFace(pybind11::module& m) {
                           ModelFormat>())
       .def("predict",
            [](vision::facedet::UltraFace& self, pybind11::array& data,
-              float conf_threshold, float nms_iou_threshold) {
+              float conf_threshold, float nms_threshold) {
              auto mat = PyArrayToCvMat(data);
              vision::FaceDetectionResult res;
-             self.Predict(&mat, &res, conf_threshold, nms_iou_threshold);
+             self.Predict(&mat, &res, conf_threshold, nms_threshold);
              return res;
            })
       .def_readwrite("size", &vision::facedet::UltraFace::size);

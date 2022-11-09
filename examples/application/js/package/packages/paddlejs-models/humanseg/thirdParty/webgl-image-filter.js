@@ -638,4 +638,3 @@ var WebGLImageFilter = window.WebGLImageFilter = function (params) {
 };
 
 export default WebGLImageFilter;
-

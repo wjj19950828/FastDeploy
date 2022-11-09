@@ -173,4 +173,3 @@ The converted model of `Paddle.js` can not only be used in the browser, but also
 |target detection| coming soon |
 | Image segmentation | coming soon |
 |Item Category| coming soon |
-

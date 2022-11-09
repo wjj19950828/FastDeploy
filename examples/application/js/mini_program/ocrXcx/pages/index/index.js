@@ -428,7 +428,7 @@ Page({
             my_canvas = res[0].node;
             my_canvas_ctx = my_canvas.getContext('2d');
         });
-        
+
       const me = this;
       // 初始化Runner
       detectRunner = new paddlejs.Runner({
@@ -452,7 +452,7 @@ Page({
                 loaded: true
             });
       });
-        
+
     },
 
     selectImage(event) {

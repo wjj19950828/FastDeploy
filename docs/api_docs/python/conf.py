@@ -22,7 +22,6 @@ project = 'FastDeploy Python API'
 copyright = '2022, PaddlePaddle'
 author = 'PaddlePaddle'
 
-
 # The full version, including alpha/beta/rc tags
 release = "latest"
 # -- General configuration ---------------------------------------------------
@@ -41,7 +40,7 @@ extensions = [
 
 autoclass_content = 'both'
 package_dir = {"": ["python"]}
-suppress_warnings = [ 'ref.myst']
+suppress_warnings = ['ref.myst']
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 # The suffix(es) of source filenames.
@@ -67,6 +66,7 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_theme = 'furo'
+
 
 # -- Extension configuration -------------------------------------------------
 def setup(app):

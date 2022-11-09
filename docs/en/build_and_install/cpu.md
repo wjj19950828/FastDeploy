@@ -34,7 +34,7 @@ make install
 
 ### Windows
 
-Prerequisite for Compiling on Windows: 
+Prerequisite for Compiling on Windows:
 
 - Windows 10/11 x64
 - Visual Studio 2019
@@ -61,7 +61,7 @@ If you use CMake GUI, please refer to [How to Compile with CMakeGUI + Visual Stu
 
 ## How to Build and Install Python SDK
 
-Prerequisite for Compiling: 
+Prerequisite for Compiling:
 
 - gcc/g++ >= 5.4 (8.2 is recommended)
 - cmake >= 3.18.0

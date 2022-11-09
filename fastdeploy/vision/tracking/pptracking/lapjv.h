@@ -63,4 +63,3 @@ int lapjv_internal(const cv::Mat &cost,
 } // namespace tracking
 } // namespace vision
 } // namespace fastdeploy
-

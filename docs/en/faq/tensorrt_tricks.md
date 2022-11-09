@@ -2,7 +2,7 @@ English | [中文](../../cn/faq/tensorrt_tricks.md)
 
 # TensorRT Q&As
 
-## 1. The following log may pop up when running TensorRT 
+## 1. The following log may pop up when running TensorRT
 ```
 [WARNING] fastdeploy/backends/tensorrt/trt_backend.cc(552)::CreateTrtEngineFromOnnx	Cannot build engine right now, because there's dynamic input shape exists, list as below,
 [WARNING] fastdeploy/backends/tensorrt/trt_backend.cc(556)::CreateTrtEngineFromOnnx	Input 0: TensorInfo(name: image, shape: [-1, 3, 320, 320], dtype: FDDataType::FP32)
@@ -20,7 +20,7 @@ Most model shapes are dynamic, e.g. the classification model input [-1, 3, 224, 
 
 - 1. Automatically set dynamic Shape: If the loaded model contains a dynamic Shape, the TensorRT engine will not be created immediately. The engine will be built after obtaining the Shape data from actual inference data.
 - - 1.1 Since most models are inferred with a stable Shape, it just postpones the construction to the inference process, with a limited impact on the whole task.
-- - 1.2 If the Shape changes during the inference process, FastDeploy will keep collecting new Shapes to expand the dynamic dimension change range. Each time the model collects an out-of-ranged new Shape, the actual range will be updated in real-time, and it will take some time to rebuild the TensorRT engine, for instance, in the OCR models. With continuous inference, the engine will not be rebuilt after the data range of Shape finally stabilizes. 
+- - 1.2 If the Shape changes during the inference process, FastDeploy will keep collecting new Shapes to expand the dynamic dimension change range. Each time the model collects an out-of-ranged new Shape, the actual range will be updated in real-time, and it will take some time to rebuild the TensorRT engine, for instance, in the OCR models. With continuous inference, the engine will not be rebuilt after the data range of Shape finally stabilizes.
 - 2. Manually set the dynamic Shape: When developers know the dynamic Shape range before hand, they can set the dynamic range manually, so as to avoid reconstructing during inference.
 - - 2.1 Python Interface calls `RuntimeOption.set_trt_input_shape`function. [Python API](https://baidu-paddle.github.io/fastdeploy-api/python/html)
 - - 2.2 C++ Interface calls`RuntimeOption.SetTrtInputShape` function.[C++ API](https://baidu-paddle.github.io/fastdeploy-api/cpp/html)
@@ -33,11 +33,9 @@ It takes a long time for TensorRT to build models. Therefore, FastDeploy provide
 - Python Interface calls`RuntimeOption.set_trt_cache_file` function[Python API](https://baidu-paddle.github.io/fastdeploy-api/python/html)
 - C++ Interface calls`RuntimeOption.SetTrtCacheFile` function [C++ API](https://baidu-paddle.github.io/fastdeploy-api/cpp/html)
 
-Interface inputs a file path string, and when the code is executed 
+Interface inputs a file path string, and when the code is executed
 
 - If the input file path does not exist, the model will build a TensorRT engine. After the construction is completed, the engine will be converted to a binary stream and stored in this file path
 - If the input file path does exist, the model will skip building the TensorRT engine and directly load this file and restore it to the TensorRT engine
 
 Therefore, if there is a change in the model, inference configuration (for example, from Float32 to Float16), developers need to delete the local cache file first to avoid errors.
-
-

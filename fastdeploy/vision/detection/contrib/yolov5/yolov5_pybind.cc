@@ -21,10 +21,10 @@ void BindYOLOv5(pybind11::module& m) {
                           ModelFormat>())
       .def("predict",
            [](vision::detection::YOLOv5& self, pybind11::array& data,
-              float conf_threshold, float nms_iou_threshold) {
+              float conf_threshold, float nms_threshold) {
              auto mat = PyArrayToCvMat(data);
              vision::DetectionResult res;
-             self.Predict(&mat, &res, conf_threshold, nms_iou_threshold);
+             self.Predict(&mat, &res, conf_threshold, nms_threshold);
              return res;
            })
       .def("use_cuda_preprocessing",
@@ -50,14 +50,14 @@ void BindYOLOv5(pybind11::module& m) {
           "postprocess",
           [](std::vector<pybind11::array> infer_results,
              const std::map<std::string, std::array<float, 2>>& im_info,
-             float conf_threshold, float nms_iou_threshold, bool multi_label,
+             float conf_threshold, float nms_threshold, bool multi_label,
              float max_wh) {
             std::vector<FDTensor> fd_infer_results(infer_results.size());
             PyArrayToTensorList(infer_results, &fd_infer_results, true);
             vision::DetectionResult result;
             vision::detection::YOLOv5::Postprocess(
                 fd_infer_results, &result, im_info, conf_threshold,
-                nms_iou_threshold, multi_label, max_wh);
+                nms_threshold, multi_label, max_wh);
             return result;
           })
       .def_readwrite("size", &vision::detection::YOLOv5::size_)

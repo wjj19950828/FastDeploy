@@ -64,15 +64,15 @@ class FASTDEPLOY_DECL YOLOv5Postprocessor {
   void GetMultiLabel() const { return multi_label_; }
 
  private:
-  bool Postprocess(std::vector<FDTensor>& tensors, DetectionResult* results,
-                   const std::map<std::string, std::array<float, 2>>& im_info,
-                   float conf_threshold, float nms_iou_threshold,
-                   bool multi_label, float max_wh = 7680.0);
+  bool Postprocess(const std::vector<FDTensor>& tensors,
+                   std::vector<DetectionResult>* results,
+                   const std::map<std::string, std::array<float, 2>>& im_info);
 
   bool initialized_ = false;
   float conf_threshold_;
   float nms_threshold_;
   bool multi_label_;
+  float max_wh_;
 };
 
 }  // namespace detection

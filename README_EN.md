@@ -38,14 +38,14 @@ English | [简体中文](README_CN.md)
  <div align="center">
   <img src="https://user-images.githubusercontent.com/54695910/200145290-d5565d18-6707-4a0b-a9af-85fd36d35d13.jpg" width = "120" height = "120" />
   </div>
-  
+
 
 - 🔥 **2022.10.31：Release FastDeploy [release v0.5.0](https://github.com/PaddlePaddle/FastDeploy/tree/release/0.5.0)** <br>
     -  **🖥️ Data Center and Cloud Deployment: Support more backend, Support more CV models**
         -  Support Paddle Inference TensorRT, and provide a seamless deployment experience with other inference engines include Paddle Inference、Paddle Lite、TensorRT、OpenVINO、ONNX Runtime；
         -  Support Graphcore IPU through paddle Inference;
         -  Support tracking model [PP-Tracking](./examples/vision/tracking/pptracking) and [RobustVideoMatting](./examples/vision/matting) model；
-        -  Support [one-click model quantization](tools/quantization) to improve model inference speed by 1.5 to 2 times on CPU & GPU platform. The supported quantized model are YOLOv7, YOLOv6, YOLOv5, etc. 
+        -  Support [one-click model quantization](tools/quantization) to improve model inference speed by 1.5 to 2 times on CPU & GPU platform. The supported quantized model are YOLOv7, YOLOv6, YOLOv5, etc.
 
 - 🔥 **2022.10.24：Release FastDeploy [release v0.4.0](https://github.com/PaddlePaddle/FastDeploy/tree/release/0.4.0)** <br>
     -  **🖥️ Data Center and Cloud Deployment: end-to-end optimization, Support more CV and NLP model**
@@ -58,12 +58,12 @@ English | [简体中文](README_CN.md)
        - Support [Lightweight Detection Model](examples/vision/detection/paddledetection/android) and [classification model](examples/vision/classification/paddleclas/android) on Android Platform，Download to try it out.
     -  **<img src="https://user-images.githubusercontent.com/54695910/200179541-05f8e187-9f8b-444c-9252-d9ce3f1ab05f.png" width = "18" height = "18" />Web-Side Deployment: support more CV model**  
        - Web deployment and Mini Program deployment New [OCR and other CV models](examples/application/js) capability.
-      
+
 
 ## Contents
 
 * <details open> <summary><style="font-size:100px"><b>📖 Tutorials（click to shrink） </b></font></summary>
-    
+
    - Install
         - [How to Install FastDeploy Prebuilt Libraries](docs/en/build_and_install/download_prebuilt_libraries.md)
         - [How to Build and Install FastDeploy Library on GPU Platform](docs/en/build_and_install/gpu.md)
@@ -99,7 +99,7 @@ English | [简体中文](README_CN.md)
 * **📲 Mobile and Edge Device Deployment**
   * [Paddle Lite NPU Deployment](#fastdeploy-edge-sdk-npu)
   * [Supported Mobile and Edge Model List](#fastdeploy-edge-models)
-* **<img src="https://user-images.githubusercontent.com/54695910/200179541-05f8e187-9f8b-444c-9252-d9ce3f1ab05f.png" width = "18" height = "18" />Web and Mini Program Deployment** 
+* **<img src="https://user-images.githubusercontent.com/54695910/200179541-05f8e187-9f8b-444c-9252-d9ce3f1ab05f.png" width = "18" height = "18" />Web and Mini Program Deployment**
   * [Supported Web and Mini Program Model List](#fastdeploy-web-models)
 * [**Community**](#fastdeploy-community)
 * [**Acknowledge**](#fastdeploy-acknowledge)  
@@ -167,7 +167,7 @@ vis_im = vision.vis_detection(im, result, score_threshold=0.5)
 cv2.imwrite("vis_image.jpg", vis_im)
 ```
 </details>
-         
+
 <div id="fastdeploy-quick-start-cpp"></div>
 
 <details>
@@ -222,7 +222,7 @@ Notes: ✅: already supported; ❔: to be supported in the future;  N/A: Not Ava
 <div align="center">
   <img src="https://user-images.githubusercontent.com/54695910/198620704-741523c1-dec7-44e5-9f2b-29ddd9997344.png" />
 </div>
-  
+
 
 | Task                          | Model                                                                                   | API                                                                                                                               | Linux                 | Linux                    | Win                      | Win                      | Mac                     | Mac                   | Linux                      | Linux                       | Linux                       |  Linux        |
 |:-----------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------:|:------------------------:|:------------------------:|:------------------------:|:-----------------------:|:---------------------:|:--------------------------:|:---------------------------:|:--------------------------:|:---------------------------:|
@@ -289,21 +289,21 @@ Notes: ✅: already supported; ❔: to be supported in the future;  N/A: Not Ava
 | Information Extraction | [PaddleNLP/UIE](./examples/text/uie)                                                         | [Python](./examples/text/uie/python)/[C++](./examples/text/uie/cpp)                                                                       | ✅       | ✅          | ✅       | ✅          | ✅       | ✅       | ✅           | ✅             | ❔             | ❔       |
 | NLP                    | [PaddleNLP/ERNIE-3.0](./examples/text/ernie-3.0)                                             | Python/C++                                                                                                                                | ❔       | ❔          | ❔       | ❔          | ❔       | ❔       | ❔           | ❔             | ❔             | ✅       |
 | Speech                 | [PaddleSpeech/PP-TTS](./examples/text/uie)                                                   | [Python](examples/audio/pp-tts/python)/C++                                                                                                | ❔       | ❔          | ❔       | ❔          | ❔       | ❔       | ❔           | ❔             | --            | ✅       |
-    
+
 
 <div id="fastdeploy-edge-doc"></div>
-    
-## 📲 Mobile and Edge Device Deployment 
+
+## 📲 Mobile and Edge Device Deployment
 
 
 <div id="fastdeploy-edge-sdk-npu"></div>
-    
+
 ### Paddle Lite NPU Deployment
 
 - [Rockchip-NPU / Amlogic-NPU / NXP-NPU](https://github.com/PaddlePaddle/Paddle-Lite-Demo/tree/develop/object_detection/linux/picodet_detection)
 
 <div id="fastdeploy-edge-models"></div>
-    
+
 ### Supported Mobile and Edge Model List 🔥🔥🔥🔥
 
 <div align="center">
@@ -349,11 +349,11 @@ Notes: ✅: already supported; ❔: to be supported in the future;  N/A: Not Ava
 | OCR                | [PaddleOCR/PP-OCRv3](examples/vision/ocr/PP-OCRv3)                                        | 2.4+10.6 | ✅       | ❔       | ❔       | ❔                          | ❔                                    | ❔                                 | ❔                        | --      |
 | OCR                | PaddleOCR/PP-OCRv3-tiny                                                                   | 2.4+10.7 | ❔       | ❔       | ❔       | ❔                          | --                                   | --                                | --                       | --      |
 
-    
+
 ## <img src="https://user-images.githubusercontent.com/54695910/200179541-05f8e187-9f8b-444c-9252-d9ce3f1ab05f.png" width = "18" height = "18" /> Web and Mini Program Deployment
 
 <div id="fastdeploy-web-models"></div>
-    
+
 | Task                | Model                                                                                         | [web_demo](examples/application/js/web_demo) |
 |:------------------:|:-------------------------------------------------------------------------------------------:|:--------------------------------------------:|
 | ---                | ---                                                                                         | [Paddle.js](examples/application/js)         |
@@ -364,7 +364,7 @@ Notes: ✅: already supported; ❔: to be supported in the future;  N/A: Not Ava
 | Object Recognition | [ItemIdentification](examples/application/js/web_demo/src/pages/cv/recognition)             | ✅                                            |
 | OCR                | [PaddleOCR/PP-OCRv3](./examples/application/js/web_demo/src/pages/cv/ocr)                   | ✅                                            |
 
-    
+
 ## Community
 
 <div id="fastdeploy-community"></div>

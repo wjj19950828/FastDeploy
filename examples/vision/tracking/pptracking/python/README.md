@@ -42,7 +42,7 @@ PP-Tracking模型加载和初始化，其中model_file, params_file以及config_
 
 ### predict函数
 
-> ```python 
+> ```python
 > PPTracking.predict(frame)
 > ```
 >

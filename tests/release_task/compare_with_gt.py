@@ -91,8 +91,8 @@ def write2file(error_file):
     with open(error_file, "a+") as f:
         from platform import python_version
         py_version = python_version()
-        f.write(args.platform + " " + py_version + " " + args.result_path.split(
-            ".")[0] + "\n")
+        f.write(args.platform + " " + py_version + " " +
+                args.result_path.split(".")[0] + "\n")
 
 
 def save_numpy_result(file_path, error_msg):

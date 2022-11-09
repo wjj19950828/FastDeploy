@@ -58,7 +58,7 @@ npm run lint
 ├─components 全局组件
 ├─router 路由
 ├─stores 存储库
-└─pages 
+└─pages
     └─cv cv相关demo
         ├─ocr ocr相关demo
         │  ├─TextDetection

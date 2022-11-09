@@ -170,5 +170,5 @@ const res = await ocr.recognize(img, { canvas: canvas.value }, detConfig);
 |OCR文本检测| [ocrdetecXcx](./mini_program/ocrdetectXcx/) |
 |OCR文本识别| [ocrXcx](./mini_program/ocrXcx/) |
 |目标检测| coming soon |
-|图像分割| coming soon | 
-|物品分类| coming soon | 
+|图像分割| coming soon |
+|物品分类| coming soon |

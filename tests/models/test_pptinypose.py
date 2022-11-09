@@ -18,6 +18,7 @@ import os
 import numpy as np
 import runtime_config as rc
 
+
 def test_keypointdetection_pptinypose():
     pp_tinypose_model_url = "https://bj.bcebos.com/fastdeploy/tests/PP_TinyPose_256x192_test.tgz"
     fd.download_and_decompress(pp_tinypose_model_url, "resources")

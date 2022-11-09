@@ -26,7 +26,7 @@ infer_cfg_file = "ppyoloe_crn_l_300e_coco/infer_cfg.yml"
 model = fd.vision.detection.PPYOLOE(model_file, params_file, infer_cfg_file)
 ```
 
-## 3. Get Prediction for Image Object Detection 
+## 3. Get Prediction for Image Object Detection
 
 ``` python
 import cv2

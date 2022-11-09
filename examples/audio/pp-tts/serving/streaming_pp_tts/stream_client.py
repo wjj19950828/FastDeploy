@@ -75,7 +75,8 @@ if __name__ == '__main__':
         type=str,
         required=False,
         default='localhost:8001',
-        help='Inference server URL and it gRPC port. Default is localhost:8001.')
+        help='Inference server URL and it gRPC port. Default is localhost:8001.'
+    )
 
     FLAGS = parser.parse_args()
 

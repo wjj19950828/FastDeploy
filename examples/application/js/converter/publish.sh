@@ -32,4 +32,3 @@ fi
 # del egg-info and build
 rm -rf paddlejsconverter.egg-info
 rm -rf build
-

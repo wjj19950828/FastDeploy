@@ -39,5 +39,3 @@ pnpm run dev:xxx
 4. 基于 ts 和 eslint 维护代码风格，保证代码更好开发
 5. 基于 conventional-changelog-cli 实现自定义关键词生成对应生成changelog
 6. 基于 yalc 实现本地打包开发测试
-
-

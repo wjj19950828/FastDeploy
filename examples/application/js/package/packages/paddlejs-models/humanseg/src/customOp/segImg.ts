@@ -18,7 +18,7 @@ function mainFunc({
 
     void main() {
         vec2 outCoord = vCoord.xy;
-       
+
         outCoord.y = 1.0 - vCoord.y;
 
         vec2 sourceTextureSize = vec2(${out.width_shape}, ${out.height_shape});
@@ -34,10 +34,10 @@ function mainFunc({
         vec4 res = vec4(0.0);
 
         if (type == 0) {
-            // Simple Cheap Box Blur 
+            // Simple Cheap Box Blur
             float pixelSizeX = 1.0 / float(${out.width_shape});
-            float pixelSizeY = 1.0 / float(${out.height_shape}); 
-    
+            float pixelSizeY = 1.0 / float(${out.height_shape});
+
             // Horizontal Blur
             vec4 accumulation = vec4(0);
             float weightsum = 0.0;
@@ -50,7 +50,7 @@ function mainFunc({
                 accumulation += TEXTURE2D(texture_counter, outCoord.xy + vec2(0.0, i * pixelSizeY)) * weight;
                 weightsum += weight;
             }
-            
+
             res = accumulation / weightsum;
             if (origin_alpha > ${THRESHHOLD}) {
                 res = counter;
@@ -66,7 +66,7 @@ function mainFunc({
                 res.a = origin_alpha;
             }
         }
-                
+
         setPackedOutput(res);
     }
     `;

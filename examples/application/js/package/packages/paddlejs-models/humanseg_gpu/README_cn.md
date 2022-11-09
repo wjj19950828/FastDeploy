@@ -91,4 +91,3 @@ await humanseg.drawMask(input, canvas3, back_canvas);
   <img width="400"  src="https://user-images.githubusercontent.com/10822846/126872499-c3fd680e-a01b-4daa-b0cb-acd3290862bd.gif"/>
   <img width="400"  src="https://user-images.githubusercontent.com/10822846/126872930-4f4c5c5d-5c51-44fe-b2d6-3f83c4e124bc.png"/>
   </p>
-

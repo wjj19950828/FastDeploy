@@ -152,7 +152,7 @@ bool RetinaFace::Preprocess(
 bool RetinaFace::Postprocess(
     std::vector<FDTensor>& infer_result, FaceDetectionResult* result,
     const std::map<std::string, std::array<float, 2>>& im_info,
-    float conf_threshold, float nms_iou_threshold) {
+    float conf_threshold, float nms_threshold) {
   // retinaface has 3 output tensors, boxes & conf & landmarks
   FDASSERT(
       (infer_result.size() == 3),
@@ -232,7 +232,7 @@ bool RetinaFace::Postprocess(
     return true;
   }
 
-  utils::NMS(result, nms_iou_threshold);
+  utils::NMS(result, nms_threshold);
 
   // scale and clip box
   for (size_t i = 0; i < result->boxes.size(); ++i) {
@@ -256,7 +256,7 @@ bool RetinaFace::Postprocess(
 }
 
 bool RetinaFace::Predict(cv::Mat* im, FaceDetectionResult* result,
-                         float conf_threshold, float nms_iou_threshold) {
+                         float conf_threshold, float nms_threshold) {
   Mat mat(*im);
   std::vector<FDTensor> input_tensors(1);
 
@@ -281,7 +281,7 @@ bool RetinaFace::Predict(cv::Mat* im, FaceDetectionResult* result,
   }
 
   if (!Postprocess(output_tensors, result, im_info, conf_threshold,
-                   nms_iou_threshold)) {
+                   nms_threshold)) {
     FDERROR << "Failed to post process." << std::endl;
     return false;
   }

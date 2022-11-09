@@ -32,11 +32,10 @@
 |OCR文本检测| [ocrdetecXcx](./mini_program/ocrdetectXcx/) |
 |OCR文本识别| [ocrXcx](./mini_program/ocrXcx/) |
 |目标检测| coming soon |
-|图像分割| coming soon | 
-|物品分类| coming soon | 
+|图像分割| coming soon |
+|物品分类| coming soon |
 
 
 ## Contributor
 
 感谢飞桨开发者专家(PPDE) 陈千鹤(github: [chenqianhe](https://github.com/chenqianhe))贡献的Web demo, 小程序。
-

@@ -79,7 +79,7 @@ class FASTDEPLOY_DECL PaddleSegModel : public FastDeployModel {
 
   std::vector<std::shared_ptr<Processor>> processors_;
   std::string config_file_;
-  
+
   // for recording the switch of normalize and hwc2chw
   bool disable_normalize_and_permute = false;
 };

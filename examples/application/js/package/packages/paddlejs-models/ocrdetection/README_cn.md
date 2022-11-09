@@ -21,4 +21,3 @@ const res = await ocr.detect(img);
 
 # 效果
 <img alt="image" src="https://user-images.githubusercontent.com/43414102/156394295-5650b6c5-65c4-42a7-bccc-3ed459577b9d.png">
-

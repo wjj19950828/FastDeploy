@@ -44,7 +44,7 @@ option.UseOrtBackend(); // ONNX Runtime
 
 For more specific demos, please refer to python or c++ inference code for different models under `FastDeploy/examples/vision`
 
-For more deployment methods, please refer to FastDeploy API tutorials. 
+For more deployment methods, please refer to FastDeploy API tutorials.
 
 - [Python API]()
 - [C++ API]()

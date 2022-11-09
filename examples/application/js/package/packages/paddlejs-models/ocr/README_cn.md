@@ -21,7 +21,7 @@ ocr_recognition模型输入shape为[1, 3, 48, 320],模型推理前会对图片�
 import * as ocr from '@paddle-js-models/ocr';
 // 模型初始化
 await ocr.init();
-// 获取文本识别结果API，img为用户上传图片，option为可选参数 
+// 获取文本识别结果API，img为用户上传图片，option为可选参数
 // option.canvas as HTMLElementCanvas：若用户需要绘制文本框选区域，传入canvas元素
 // option.style as object：若用户需要配置canvas 样式，传入style 对象
 // option.style.strokeStyle as string：文本框选颜色
