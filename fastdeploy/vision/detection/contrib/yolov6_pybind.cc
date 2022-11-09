@@ -21,10 +21,10 @@ void BindYOLOv6(pybind11::module& m) {
                           ModelFormat>())
       .def("predict",
            [](vision::detection::YOLOv6& self, pybind11::array& data,
-              float conf_threshold, float nms_iou_threshold) {
+              float conf_threshold, float nms_threshold) {
              auto mat = PyArrayToCvMat(data);
              vision::DetectionResult res;
-             self.Predict(&mat, &res, conf_threshold, nms_iou_threshold);
+             self.Predict(&mat, &res, conf_threshold, nms_threshold);
              return res;
            })
       .def("use_cuda_preprocessing",

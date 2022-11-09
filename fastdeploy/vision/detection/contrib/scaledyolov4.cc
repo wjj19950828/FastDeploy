@@ -151,7 +151,7 @@ bool ScaledYOLOv4::Preprocess(
 bool ScaledYOLOv4::Postprocess(
     FDTensor& infer_result, DetectionResult* result,
     const std::map<std::string, std::array<float, 2>>& im_info,
-    float conf_threshold, float nms_iou_threshold) {
+    float conf_threshold, float nms_threshold) {
   FDASSERT(infer_result.shape[0] == 1, "Only support batch =1 now.");
   result->Clear();
   result->Reserve(infer_result.shape[1]);
@@ -180,7 +180,7 @@ bool ScaledYOLOv4::Postprocess(
     result->label_ids.push_back(label_id);
     result->scores.push_back(confidence);
   }
-  utils::NMS(result, nms_iou_threshold);
+  utils::NMS(result, nms_threshold);
 
   // scale the boxes to the origin image shape
   auto iter_out = im_info.find("output_shape");
@@ -219,7 +219,7 @@ bool ScaledYOLOv4::Postprocess(
 }
 
 bool ScaledYOLOv4::Predict(cv::Mat* im, DetectionResult* result,
-                           float conf_threshold, float nms_iou_threshold) {
+                           float conf_threshold, float nms_threshold) {
   Mat mat(*im);
 
   std::map<std::string, std::array<float, 2>> im_info;
@@ -241,7 +241,7 @@ bool ScaledYOLOv4::Predict(cv::Mat* im, DetectionResult* result,
     return false;
   }
   if (!Postprocess(reused_output_tensors_[0], result, im_info, conf_threshold,
-                   nms_iou_threshold)) {
+                   nms_threshold)) {
     FDERROR << "Failed to post process." << std::endl;
     return false;
   }

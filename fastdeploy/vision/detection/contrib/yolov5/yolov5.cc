@@ -64,7 +64,7 @@ YOLOv5::~YOLOv5() {
 bool YOLOv5::Predict(cv::Mat* im, DetectionResult* result, float conf_threshold, float nms_threshold) {
   postprocessor_.SetConfThreshold(conf_threshold);
   postprocessor_.SetNMSThreshold(nms_threshold);
-  
+
 }
 
 YOLOv5::Predict(const cv::Mat* im, DetectionResult* result) {

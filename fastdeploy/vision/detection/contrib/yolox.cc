@@ -136,7 +136,7 @@ bool YOLOX::Preprocess(Mat* mat, FDTensor* output,
 bool YOLOX::Postprocess(
     FDTensor& infer_result, DetectionResult* result,
     const std::map<std::string, std::array<float, 2>>& im_info,
-    float conf_threshold, float nms_iou_threshold) {
+    float conf_threshold, float nms_threshold) {
   FDASSERT(infer_result.shape[0] == 1, "Only support batch =1 now.");
   result->Clear();
   result->Reserve(infer_result.shape[1]);
@@ -165,7 +165,7 @@ bool YOLOX::Postprocess(
     result->label_ids.push_back(label_id);
     result->scores.push_back(confidence);
   }
-  utils::NMS(result, nms_iou_threshold);
+  utils::NMS(result, nms_threshold);
 
   // scale the boxes to the origin image shape
   auto iter_out = im_info.find("output_shape");
@@ -199,7 +199,7 @@ bool YOLOX::Postprocess(
 bool YOLOX::PostprocessWithDecode(
     FDTensor& infer_result, DetectionResult* result,
     const std::map<std::string, std::array<float, 2>>& im_info,
-    float conf_threshold, float nms_iou_threshold) {
+    float conf_threshold, float nms_threshold) {
   FDASSERT(infer_result.shape[0] == 1, "Only support batch =1 now.");
   result->Clear();
   result->Reserve(infer_result.shape[1]);
@@ -247,7 +247,7 @@ bool YOLOX::PostprocessWithDecode(
     result->label_ids.push_back(label_id);
     result->scores.push_back(confidence);
   }
-  utils::NMS(result, nms_iou_threshold);
+  utils::NMS(result, nms_threshold);
 
   // scale the boxes to the origin image shape
   auto iter_out = im_info.find("output_shape");
@@ -279,7 +279,7 @@ bool YOLOX::PostprocessWithDecode(
 }
 
 bool YOLOX::Predict(cv::Mat* im, DetectionResult* result, float conf_threshold,
-                    float nms_iou_threshold) {
+                    float nms_threshold) {
   Mat mat(*im);
 
   std::map<std::string, std::array<float, 2>> im_info;
@@ -303,13 +303,13 @@ bool YOLOX::Predict(cv::Mat* im, DetectionResult* result, float conf_threshold,
 
   if (is_decode_exported) {
     if (!Postprocess(reused_output_tensors_[0], result, im_info, conf_threshold,
-                     nms_iou_threshold)) {
+                     nms_threshold)) {
       FDERROR << "Failed to post process." << std::endl;
       return false;
     }
   } else {
     if (!PostprocessWithDecode(reused_output_tensors_[0], result, im_info,
-                               conf_threshold, nms_iou_threshold)) {
+                               conf_threshold, nms_threshold)) {
       FDERROR << "Failed to post process." << std::endl;
       return false;
     }

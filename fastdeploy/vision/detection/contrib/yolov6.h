@@ -46,12 +46,12 @@ class FASTDEPLOY_DECL YOLOv6 : public FastDeployModel {
    * \param[in] im The input image data, comes from cv::imread(), is a 3-D array with layout HWC, BGR format
    * \param[in] result The output detection result will be writen to this structure
    * \param[in] conf_threshold confidence threashold for postprocessing, default is 0.25
-   * \param[in] nms_iou_threshold iou threashold for NMS, default is 0.5
+   * \param[in] nms_threshold iou threashold for NMS, default is 0.5
    * \return true if the prediction successed, otherwise false
    */
   virtual bool Predict(cv::Mat* im, DetectionResult* result,
                        float conf_threshold = 0.25,
-                       float nms_iou_threshold = 0.5);
+                       float nms_threshold = 0.5);
 
 
   void UseCudaPreprocessing(int max_img_size = 3840 * 2160);
@@ -88,7 +88,7 @@ class FASTDEPLOY_DECL YOLOv6 : public FastDeployModel {
 
   bool Postprocess(FDTensor& infer_result, DetectionResult* result,
                    const std::map<std::string, std::array<float, 2>>& im_info,
-                   float conf_threshold, float nms_iou_threshold);
+                   float conf_threshold, float nms_threshold);
 
   bool IsDynamicInput() const { return is_dynamic_input_; }
 

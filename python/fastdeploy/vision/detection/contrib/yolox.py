@@ -40,16 +40,16 @@ class YOLOX(FastDeployModel):
         # 通过self.initialized判断整个模型的初始化是否成功
         assert self.initialized, "YOLOX initialize failed."
 
-    def predict(self, input_image, conf_threshold=0.25, nms_iou_threshold=0.5):
+    def predict(self, input_image, conf_threshold=0.25, nms_threshold=0.5):
         """Detect an input image
 
         :param input_image: (numpy.ndarray)The input image data, 3-D array with layout HWC, BGR format
         :param conf_threshold: confidence threashold for postprocessing, default is 0.25
-        :param nms_iou_threshold: iou threashold for NMS, default is 0.5
+        :param nms_threshold: iou threashold for NMS, default is 0.5
         :return: DetectionResult
         """
         return self._model.predict(input_image, conf_threshold,
-                                   nms_iou_threshold)
+                                   nms_threshold)
 
     # 一些跟YOLOX模型有关的属性封装
     # 多数是预处理相关，可通过修改如model.size = [1280, 1280]改变预处理时resize的大小（前提是模型支持）

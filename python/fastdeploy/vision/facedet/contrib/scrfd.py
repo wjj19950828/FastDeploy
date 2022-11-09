@@ -40,16 +40,16 @@ class SCRFD(FastDeployModel):
         # 通过self.initialized判断整个模型的初始化是否成功
         assert self.initialized, "SCRFD initialize failed."
 
-    def predict(self, input_image, conf_threshold=0.7, nms_iou_threshold=0.3):
+    def predict(self, input_image, conf_threshold=0.7, nms_threshold=0.3):
         """Detect the location and key points of human faces from an input image
 
         :param input_image: (numpy.ndarray)The input image data, 3-D array with layout HWC, BGR format
         :param conf_threshold: confidence threashold for postprocessing, default is 0.7
-        :param nms_iou_threshold: iou threashold for NMS, default is 0.3
+        :param nms_threshold: iou threashold for NMS, default is 0.3
         :return: FaceDetectionResult
         """
         return self._model.predict(input_image, conf_threshold,
-                                   nms_iou_threshold)
+                                   nms_threshold)
 
     # 一些跟SCRFD模型有关的属性封装
     # 多数是预处理相关，可通过修改如model.size = [640, 640]改变预处理时resize的大小（前提是模型支持）

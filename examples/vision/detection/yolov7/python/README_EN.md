@@ -49,7 +49,7 @@ YOLOv7 model loading and initialisation, with model_file being the exported ONNX
 ### Predict Function
 
 > ```python
-> YOLOv7.predict(image_data, conf_threshold=0.25, nms_iou_threshold=0.5)
+> YOLOv7.predict(image_data, conf_threshold=0.25, nms_threshold=0.5)
 > ```
 >
 > Model prediction interface with direct output of detection results from the image input.
@@ -58,7 +58,7 @@ YOLOv7 model loading and initialisation, with model_file being the exported ONNX
 >
 > > * **image_data**(np.ndarray): Input image. Images need to be in HWC or BGR format
 > > * **conf_threshold**(float): Filter threshold for detection box confidence
-> > * **nms_iou_threshold**(float): iou thresholds during NMS processing
+> > * **nms_threshold**(float): iou thresholds during NMS processing
 
 > **Return**
 >

@@ -45,12 +45,12 @@ class FASTDEPLOY_DECL UltraFace : public FastDeployModel {
    * \param[in] im The input image data, comes from cv::imread(), is a 3-D array with layout HWC, BGR format
    * \param[in] result The output face detection result will be writen to this structure
    * \param[in] conf_threshold confidence threashold for postprocessing, default is 0.7
-   * \param[in] nms_iou_threshold iou threashold for NMS, default is 0.3
+   * \param[in] nms_threshold iou threashold for NMS, default is 0.3
    * \return true if the prediction successed, otherwise false
    */
   virtual bool Predict(cv::Mat* im, FaceDetectionResult* result,
                        float conf_threshold = 0.7f,
-                       float nms_iou_threshold = 0.3f);
+                       float nms_threshold = 0.3f);
 
   /*! @brief
   Argument for image preprocessing step, tuple of (width, height), decide the target size after resize, default (320, 240)
@@ -66,7 +66,7 @@ class FASTDEPLOY_DECL UltraFace : public FastDeployModel {
   bool Postprocess(std::vector<FDTensor>& infer_result,
                    FaceDetectionResult* result,
                    const std::map<std::string, std::array<float, 2>>& im_info,
-                   float conf_threshold, float nms_iou_threshold);
+                   float conf_threshold, float nms_threshold);
 
   bool IsDynamicInput() const { return is_dynamic_input_; }
 
